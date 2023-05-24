@@ -1,0 +1,16 @@
+POST http://localhost:3001/pets/
+Content-Type: application/json
+
+{
+  "type": "hamster",
+  "name": "Popcorn",
+  "status": "available",
+  "picture": "https://images.pexels.com/photos/289609/pexels-photo-289609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "height": 5,
+  "weight": 0.15,
+  "color": "gray",
+  "bio": "Energetic and playful hamster, loves exploring mazes",
+  "hypoallergenic": true,
+  "dietaryRestrictions": [],
+  "breed": "Roborovski Hamster"
+}

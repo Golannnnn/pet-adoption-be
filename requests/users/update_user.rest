@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users/update/
+Content-Type: application/json
+
+{
+    "id": "644cdc02e01e793b92c51f6a",
+    "name": "John Doe"
+}

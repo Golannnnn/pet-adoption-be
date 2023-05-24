@@ -1,0 +1,1 @@
+GET http://localhost:3001/api/pets/64525498787d09c27ebe3b9f
