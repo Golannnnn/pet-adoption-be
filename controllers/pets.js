@@ -3,9 +3,6 @@ const Pet = require("../models/pet");
 const auth = require("../utils/middleware").auth;
 const upload = require("../utils/middleware").upload;
 
-//TODO: change routes to resemble the instructions
-//TODO: protect certain routes, allow only users or admins to access them
-
 petsRouter.get("/", async (request, response) => {
   const pets = await Pet.find({});
   response.status(200).json(pets);
@@ -77,8 +74,6 @@ petsRouter.post(
   async (request, response) => {
     const { ...rest } = request.body;
     const path = request.file.path;
-
-    console.log(rest, request.file);
 
     const pet = new Pet({
       ...rest,

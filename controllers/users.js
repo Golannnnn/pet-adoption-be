@@ -127,10 +127,6 @@ usersRouter.get("/all", auth, async (request, response) => {
   response.status(200).json(users);
 });
 
-//TODO: if no user found, create new user
-//TODO: store google_token in local storage
-//TODO: expand auth middleware to check for google_token
-
 usersRouter.get("/google-login", auth, async (request, response) => {
   const token = request.headers.authorization?.split(" ")[1];
   const { email } = request.user;
@@ -155,8 +151,6 @@ usersRouter.get("/google-login", auth, async (request, response) => {
     });
 
     const savedUser = await user.save();
-
-    console.log("savedUser: ", savedUser);
 
     response.status(201).json({
       savedUser,

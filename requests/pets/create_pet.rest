@@ -1,16 +1,33 @@
-POST http://localhost:3001/pets/
+POST http://localhost:3001/pets/create
 Content-Type: application/json
 
 {
-  "type": "hamster",
-  "name": "Popcorn",
+  "type": "dog",
+  "name": "Professor Pawsenstein",
   "status": "available",
-  "picture": "https://images.pexels.com/photos/289609/pexels-photo-289609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-  "height": 5,
-  "weight": 0.15,
+  "picture": "https://images.pexels.com/photos/444444/pexels-photo-444444.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  "height": 15,
+  "weight": 12.6,
   "color": "gray",
-  "bio": "Energetic and playful hamster, loves exploring mazes",
+  "bio": "A wise and knowledgeable dog, always ready to teach you new tricks!",
   "hypoallergenic": true,
-  "dietaryRestrictions": [],
-  "breed": "Roborovski Hamster"
+  "dietaryRestrictions": ["chicken", "blueberries"],
+  "breed": "Canine Professor"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

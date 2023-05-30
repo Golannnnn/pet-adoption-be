@@ -16,6 +16,8 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "pet_adoption",
+    transformation: [{ height: 380, crop: "scale" }],
+    allowedFormats: ["jpg", "png", "jpeg", "gif", "webp"],
   },
 });
 
