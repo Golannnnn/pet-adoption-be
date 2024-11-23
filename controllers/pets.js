@@ -13,13 +13,13 @@ petsRouter.get("/:id", async (request, response) => {
 
   const pet = await Pet.findById(id);
 
-  if (pet) {
-    response.status(200).json(pet);
-  } else {
-    response.status(404).send({
+  if (!pet) {
+    response.status(404).json({
       error: "Pet not found",
     });
   }
+
+  response.status(200).json(pet);
 });
 
 petsRouter.get("/user/:id", async (request, response) => {
@@ -29,11 +29,18 @@ petsRouter.get("/user/:id", async (request, response) => {
     userId: id,
   });
 
-  response.status(pet.length > 0 ? 200 : 404).json(pet);
+  if (!pet) {
+    response.status(404).json({
+      error: "Pet not found",
+    });
+  }
+
+  response.status(200).json(pet);
 });
 
 petsRouter.get("/search/:query", async (request, response) => {
   const { query } = request.params;
+
   const queryObject = Object.fromEntries(
     query.split("&").map((pair) => pair.split("="))
   );
@@ -72,33 +79,42 @@ petsRouter.post(
   auth,
   upload.single("picture"),
   async (request, response) => {
-    const { ...rest } = request.body;
-    const path = request.file.path;
+    const petData = {
+      ...request.body,
+      picture: request.file.path,
+    };
 
-    const pet = new Pet({
-      ...rest,
-      picture: path,
-    });
+    const savedPet = await createPet(petData);
 
-    const existingPet = await Pet.findOne({
-      name: pet.name,
-      type: pet.type,
-      breed: pet.breed,
-      height: pet.height,
-      weight: pet.weight,
-    });
-
-    if (existingPet) {
-      response.status(409).json({
-        error: "Pet already exists",
-      });
+    if (savedPet.error) {
+      response.status(400).json(savedPet);
     }
-
-    const savedPet = await pet.save();
 
     response.status(201).json(savedPet);
   }
 );
+
+const createPet = async (petData) => {
+  const pet = new Pet(petData);
+
+  const existingPet = await Pet.findOne({
+    name: pet.name,
+    type: pet.type,
+    breed: pet.breed,
+    height: pet.height,
+    weight: pet.weight,
+  });
+
+  if (existingPet) {
+    return {
+      error: "Pet already exists",
+    };
+  }
+
+  const savedPet = await pet.save();
+
+  return savedPet;
+};
 
 petsRouter.put(
   "/:id",
