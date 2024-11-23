@@ -7,6 +7,7 @@ const usersRouter = require("./controllers/users");
 const petsRouter = require("./controllers/pets");
 const middleware = require("./utils/middleware");
 const mongoose = require("mongoose");
+const task = require("./utils/task");
 
 mongoose.set("strictQuery", false);
 
@@ -31,5 +32,6 @@ app.use("/pets/", petsRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
+task.start();
 
 module.exports = app;
